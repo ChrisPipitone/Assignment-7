@@ -19,7 +19,6 @@ export default function SearchField() {
     const handleSubmit = (e) => {
         e.preventDefault();
         getRestuls()
-        
         console.log("submit text : "  + text)
     }
 
