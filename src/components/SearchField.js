@@ -17,13 +17,24 @@ export default function SearchField() {
 
     }
     
-    const handleSubmit = (e) => {
+    const handleSearch = (e) => {
         e.preventDefault();
         getResults()
 
         console.log("submit text : "  + text)
     }
 
+
+    const handleTrending = (e) => {
+        getResults()
+    }
+
+    
+    const handleRandom = (e) => {
+        getResults()
+    }
+
+    
     const getResults = async () => {
         console.log(`${apiRoot}/v1/gifs/search?q=${text}&api_key=${api_key}`)
         await axios.get(`${apiRoot}/v1/gifs/search?q=${text}&api_key=${api_key}`)
@@ -48,7 +59,9 @@ export default function SearchField() {
                  <div className="m-2">Search For Your Favorite Gif!</div>
                 <div className='m-1 searchField'>
                     <input className='input-field' type ="text" value={text} onChange={handleInput}></input>
-                    <button className='submit-btn' onClick={handleSubmit}>Submit</button>
+                    <button className='seach-btn' onClick={handleSearch}>Search</button>
+                    <button className='trending-btn' onClick={handleTrending}>Trending</button>
+                    <button className='random-btn' onClick={handleRandom}>Random</button>
                 </div>
             </div>
             

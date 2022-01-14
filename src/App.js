@@ -8,8 +8,6 @@ import SearchField from "./components/SearchField";
 
 function App() {
 
-  //let url = 'http://api.giphy.com/v1/gifs/search?q=SEARCH+TERM+GOES+HERE&api_key=YOUR_API_KEY'
-
   const [giphy, setGiphy] = useState("")
 
 
@@ -20,10 +18,6 @@ function App() {
   //       setData(res.data)
   //     })
   // }
-
-  // useEffect( () => {
-
-  // },[])
 
 
   return (
