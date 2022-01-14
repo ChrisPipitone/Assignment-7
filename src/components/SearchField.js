@@ -13,27 +13,28 @@ export default function SearchField() {
     const handleInput = (e) => {
         e.preventDefault();
         setText(e.target.value)
-        getRestuls()
+        // getRestuls()
+
     }
     
     const handleSubmit = (e) => {
         e.preventDefault();
-        getRestuls()
+        getResults()
+
         console.log("submit text : "  + text)
     }
 
-    const getRestuls = async () => {
+    const getResults = async () => {
         console.log(`${apiRoot}/v1/gifs/search?q=${text}&api_key=${api_key}`)
         await axios.get(`${apiRoot}/v1/gifs/search?q=${text}&api_key=${api_key}`)
         .then(res => {
-            setResults(res.data)
-            console.log(res.data)
+            setResults(res.data.data)
+            
         })  
     }
 
     useEffect( () => {
-        getRestuls()
-        
+        getResults() 
     }, [])
 
     return (
@@ -53,18 +54,22 @@ export default function SearchField() {
             
             
             <div className="container">
-                {/* {
+                {
                     result.map(element => (
-                    <div className="row">
-                        <GifCard gif={element} />
+                    <div key={element.id} >
+                        <GifCard gifSrc={element.images.fixed_height_small.url} />
+
+                        {/* {
+                            console.log("from search "  + element.images.fixed_height_small.url) 
+                        } */}
+                       
                     </div>
                     )
                     )
+                }    
+                {/* {
+                    console.log(result)
                 } */}
-                {
-                    console.log("RESUT ::::" + result)
-                   
-                }
             </div>
         </div>
     );

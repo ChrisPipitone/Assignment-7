@@ -2,24 +2,26 @@ import React from 'react'
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Card, Container, Row, Col } from "react-bootstrap";
 
-export default function GifCard(searchResultsProp) {
+export default function GifCard(gifSrc) {
+
+     const url = gifSrc;
+    
 
     const renderCardInfo = () => (
         <Card style={{ width: '18rem' }}>
+            <Card.Img variant="top" src={gifSrc.gifSrc} alt="gif" />
             <Card.Body>
-                <Card.Title className="bg-dark"><div className="text-light p-2"></div></Card.Title>
-                <Card.Img>
-                    variant="top"
-                    src={searchResultsProp.url}
-                    style={{ height: "450px", width: "100%" }}
-                </Card.Img>
+                <Card.Title>
+                    Title
+                </Card.Title>
             </Card.Body>
         </Card>
     )
 
     return (
         <div>
-            {searchResultsProp ? renderCardInfo() : <p> Failed search</p>}
+            {gifSrc ? renderCardInfo() : <p> Failed search</p>}
+            {/* {console.log("from card " + gifSrc.gifSrc)} */}
         </div>
     )
 }
