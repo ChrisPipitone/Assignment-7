@@ -13,40 +13,39 @@ export default function SearchField() {
     const handleInput = (e) => {
         e.preventDefault();
         setText(e.target.value)
-        // getRestuls()
-
     }
-    
     const handleSearch = (e) => {
         e.preventDefault();
-        getResults()
+        const url = `${apiRoot}/v1/gifs/search?q=${text}&api_key=${api_key}`
+        getResults(url)
 
         console.log("submit text : "  + text)
     }
-
-
     const handleTrending = (e) => {
-        getResults()
+        const url = `${apiRoot}/v1/gifs/trending?api_key=${api_key}`
+        getResults(url)
+        console.log("TRENDING ")
     }
-
-    
     const handleRandom = (e) => {
-        getResults()
+
+        //returns correct url in console. crashes after 
+        const url = `${apiRoot}/v1/gifs/random?api_key=${api_key}`
+        getResults(url)
+        console.log("RANDOM")
     }
 
-    
-    const getResults = async () => {
-        console.log(`${apiRoot}/v1/gifs/search?q=${text}&api_key=${api_key}`)
-        await axios.get(`${apiRoot}/v1/gifs/search?q=${text}&api_key=${api_key}`)
+    const getResults = async (url) => {
+        console.log(url)
+        await axios.get(url)
         .then(res => {
             setResults(res.data.data)
             
         })  
     }
-
-    useEffect( () => {
-        getResults() 
-    }, [])
+   
+    // useEffect( () => {
+    //     getResults() 
+    // }, [])
 
     return (
         <div>
@@ -65,24 +64,37 @@ export default function SearchField() {
                 </div>
             </div>
             
-            
             <div className="container">
+                {
+                    //when random button is pressed this outputs twice 
+                    //second time it seems like map function tries to access a second element that doesnt
+                    //exist since random only returns one object from the api
+                    // so it crashes
+                    console.log("help")
+                }
+
+                {
+                    console.log(result)
+                }
+
                 {
                     result.map(element => (
                     <div key={element.id} >
                         <GifCard gifSrc={element.images.fixed_height_small.url} />
 
-                        {/* {
-                            console.log("from search "  + element.images.fixed_height_small.url) 
-                        } */}
-                       
+                       {/* {
+                           console.log(element)
+                       }  */}
+
                     </div>
                     )
                     )
+
                 }    
                 {/* {
                     console.log(result)
                 } */}
+
             </div>
         </div>
     );
